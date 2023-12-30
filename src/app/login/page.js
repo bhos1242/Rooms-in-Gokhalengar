@@ -35,10 +35,10 @@ const LoginPage = () => {
     setLoading(true);
     try {
       const response = await signIn(provider, { ...credentials });
-
+      
       if (response) {
         toast.success("Login successful");
-        router.replace("/");
+       
       }
     } catch (error) {
       console.error("Login error:", error);
@@ -46,6 +46,10 @@ const LoginPage = () => {
       toast.error("Login failed. Please try again.");
     } finally {
       setLoading(false);
+
+      // Redirect after displaying the toast
+      
+      router.replace("/");
     }
   };
 

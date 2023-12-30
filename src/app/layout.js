@@ -4,7 +4,7 @@ import Header from "./Components/Header/Header";
 import { Toaster } from "react-hot-toast";
 import AuthProvider from "./Components/AuthProvider";
 import { Suspense } from "react";
-import loading from "./loading"
+import loading from "./loading";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -17,14 +17,12 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          <Toaster />
+       
           <Header />
-          
-         
-            <div className="min-h-screen">
+
+          <div className="min-h-screen">
             <Suspense fallback={<loading />}>
-              {children}
-          </Suspense>
+            <Toaster />{children}</Suspense>
           </div>
         </AuthProvider>
       </body>
