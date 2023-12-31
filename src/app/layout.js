@@ -17,12 +17,13 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-       
           <Header />
 
           <div className="min-h-screen">
             <Suspense fallback={<loading />}>
-            <Toaster />{children}</Suspense>
+              <Toaster />
+              {children}
+            </Suspense>
           </div>
         </AuthProvider>
       </body>

@@ -1,8 +1,9 @@
 import React from 'react'
+import FindRoom from './findRoom'
 
 const FindRoomPage = () => {
   return (
-    <div>FindRoomPage</div>
+    <div><FindRoom/>   </div>
   )
 }
 
