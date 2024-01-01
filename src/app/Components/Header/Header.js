@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
+import logo from "../../assets/logos2/logo-no-background.png"
 
 export default function Header() {
   // Use the useSession hook to retrieve user session information
@@ -12,46 +13,46 @@ export default function Header() {
   // State to track mobile menu visibility
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Function to close mobile menu
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   // Function to toggle mobile menu visibility
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
-    <nav className="bg-white border-b border-gray-200 dark:bg-gray-900">
+    <nav className="bg-white border-b border-gray-200 dark:bg-gray-900 px-8">
       <div className="container mx-auto flex items-center justify-between p-4">
         <Link href="/">
-          <p className="flex items-center space-x-3 cursor-pointer">
+          <p className="flex items-center space-x-3 cursor-pointer h-6">
             <Image
-              src="https://flowbite.com/docs/images/logo.svg"
-              className="h-8"
+              src={logo}
               alt="Flowbite Logo"
-              width={32}
-              height={32}
+              width={300}
+              height={300}
             />
-            <span className="text-xl font-semibold text-gray-800 dark:text-white">
-              Rooms In Gokhalenagar
-            </span>
           </p>
         </Link>
 
         {/* Desktop menu */}
         <div className="hidden md:flex items-center space-x-4">
-          <NavLink href="/">Home</NavLink>
-          <NavLink href="/post-vacancy">Post Vacancy</NavLink>
-          <NavLink href="/find-room">Find Room</NavLink>
-          <NavLink href="/messages">Messages</NavLink>
+          <NavLink href="/" onClick={closeMobileMenu}>Home</NavLink>
+          <NavLink href="/post-vacancy" onClick={closeMobileMenu}>Post Vacancy</NavLink>
+          <NavLink href="/find-room" onClick={closeMobileMenu}>Find Room</NavLink>
+          <NavLink href="/messages" onClick={closeMobileMenu}>Messages</NavLink>
 
           {/* Conditional rendering based on authentication status */}
           {session.status === 'unauthenticated' && (
             <>
-              <NavLink href="/login">Login</NavLink>
-              <NavLink href="/resister">Sign Up</NavLink>
+              <NavLink href="/login" onClick={closeMobileMenu}>Login</NavLink>
+              <NavLink href="/resister" onClick={closeMobileMenu}>Sign Up</NavLink>
             </>
           )}
-          {session.status==='authenticated' &&(
-            <NavLink href="/logout">Logout</NavLink>
-
+          {session.status === 'authenticated' && (
+            <NavLink href="/logout" onClick={closeMobileMenu}>Logout</NavLink>
           )}
         </div>
 
@@ -99,21 +100,20 @@ export default function Header() {
         } bg-white border-t border-gray-200 dark:bg-gray-900`}
       >
         <div className="container mx-auto p-4">
-          <NavLink href="/">Home</NavLink>
-          <NavLink href="/post-vacancy">Post Vacancy</NavLink>
-          <NavLink href="/find-room">Find Room</NavLink>
-          <NavLink href="/messages">Messages</NavLink>
+          <NavLink href="/" onClick={closeMobileMenu}>Home</NavLink>
+          <NavLink href="/post-vacancy" onClick={closeMobileMenu}>Post Vacancy</NavLink>
+          <NavLink href="/find-room" onClick={closeMobileMenu}>Find Room</NavLink>
+          <NavLink href="/messages" onClick={closeMobileMenu}>Messages</NavLink>
 
           {/* Conditional rendering based on authentication status */}
           {session.status === 'unauthenticated' && (
             <>
-              <NavLink href="/login">Login</NavLink>
-              <NavLink href="/resister">Sign Up</NavLink>
+              <NavLink href="/login" onClick={closeMobileMenu}>Login</NavLink>
+              <NavLink href="/resister" onClick={closeMobileMenu}>Sign Up</NavLink>
             </>
           )}
-        {session.status==='authenticated' &&(
-            <NavLink href="/logout">Logout</NavLink>
-
+          {session.status === 'authenticated' && (
+            <NavLink href="/logout" onClick={closeMobileMenu}>Logout</NavLink>
           )}
         </div>
       </div>
@@ -122,10 +122,10 @@ export default function Header() {
 }
 
 // Custom NavLink component to handle active state
-function NavLink({ href, children }) {
+function NavLink({ href, children, onClick }) {
   return (
-    <Link href={href}>
-      <p className="text-gray-700 dark:text-white hover:text-blue-500 cursor-pointer py-2">
+    <Link href={href} passHref>
+      <p onClick={onClick} className="text-gray-700 dark:text-white hover:text-blue-500 cursor-pointer py-2">
         {children}
       </p>
     </Link>

@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "./Components/Header/Header";
+import Footer from "./Components/Footer/Footer"
 import { Toaster } from "react-hot-toast";
 import AuthProvider from "./Components/AuthProvider";
 import { Suspense } from "react";
@@ -19,12 +20,13 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <Header />
 
-          <div className="min-h-screen">
+          <div className="min-h-screen px-8">
             <Suspense fallback={<loading />}>
               <Toaster />
               {children}
             </Suspense>
           </div>
+          <Footer/>
         </AuthProvider>
       </body>
     </html>

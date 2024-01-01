@@ -83,6 +83,7 @@ const PostVacancy = () => {
             )}
           </div>
         ))}
+        
         {/* Checkbox for light bill inclusion */}
         <div className="mb-6">
           <label className="flex items-center text-sm text-gray-600">

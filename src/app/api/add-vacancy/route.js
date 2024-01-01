@@ -7,7 +7,7 @@ export async function POST(request) {
     connect();
     const { title, location, accommodationType, description, rent, contactInfo, lightBillIncluded } = await request.json();
 
-    // Create a new room instance
+    // Create a new room instancez
     const newRoom = new Room({
       title,
       location,
@@ -16,6 +16,7 @@ export async function POST(request) {
       rent,
       contactInfo,
       lightBillIncluded,
+      
     });
 
     // Save the new room to the database

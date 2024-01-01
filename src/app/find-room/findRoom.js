@@ -1,71 +1,102 @@
-"use client"
-import React, { useEffect, useState } from 'react';
+// Import necessary modules and styles
+"use client";
+import { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import { getRoomDetails } from '../../services/roomService';
+import RoomCard from './RoomCard';
+
+const Container = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+`;
+
+const Title = styled.h2`
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+`;
+
+const RoomGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+`;
+
+const LoadingMessage = styled.p`
+  text-align: center;
+  font-size: 1.2rem;
+  color: #555;
+`;
+
+const ErrorMessage = styled.p`
+  text-align: center;
+  font-size: 1.2rem;
+  color: #ff0000;
+`;
+
+const SearchInput = styled.input`
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+`;
 
 const FindRoom = () => {
   const [roomDetails, setRoomDetails] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    // Fetch room details when the component mounts
     fetchRoomDetails();
   }, []);
 
   const fetchRoomDetails = async () => {
     try {
-      // Fetch room details from the server
       const response = await getRoomDetails();
       if (response.status) {
-        // Set the fetched room details in the state
         setRoomDetails(response.data);
       } else {
-        console.error("Failed to fetch room details");
+        setError("Failed to fetch room details");
       }
     } catch (error) {
-      console.error("Error fetching room details:", error);
+      setError("Error fetching room details");
+    } finally {
+      setLoading(false);
     }
   };
 
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredRooms = roomDetails.filter(room =>
+    room.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    room.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    room.rent.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <div className="container mx-auto mt-8 p-4">
-      <h2 className="text-4xl font-semibold mb-6 text-center text-blue-500">Find a Room</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {roomDetails.map((room) => (
-          <div key={room._id} className="bg-white rounded-lg overflow-hidden shadow-md">
-            <img
-              src="room-image-placeholder.jpg" // Replace with actual image URL or use room images from your server
-              alt={`Room: ${room.title}`}
-              className="w-full h-48 object-cover md:h-64"
-            />
-            <div className="p-4">
-              <h3 className="text-xl font-semibold mb-2">{room.title}</h3>
-              <p className="text-gray-600 mb-4">{room.description}</p>
-              <div className="flex flex-col mb-4">
-                <span className="font-semibold text-gray-800">Rent:</span>
-                <span className="text-gray-600">{`Rs${room.rent}`}</span>
-              </div>
-              <div className="flex flex-col mb-4">
-                <span className="font-semibold text-gray-800">Location:</span>
-                <span className="text-gray-600">{room.location}</span>
-              </div>
-              <div className="flex flex-col mb-4">
-                <span className="font-semibold text-gray-800">Accommodation Type:</span>
-                <span className="text-gray-600">{room.accommodationType}</span>
-              </div>
-              <div className="flex flex-col mb-4">
-                <span className="font-semibold text-gray-800">Contact Info:</span>
-                <span className="text-gray-600">{room.contactInfo}</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="font-semibold text-gray-800">Light Bill Included:</span>
-                <span className={`text-${room.lightBillIncluded ? 'green' : 'red'}-600`}>
-                  {room.lightBillIncluded ? 'Yes' : 'No'}
-                </span>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+    <Container>
+      <Title>Find a Room</Title>
+      <SearchInput
+        type="text"
+        placeholder="Search by title, rent, or location"
+        value={searchTerm}
+        onChange={handleSearch}
+      />
+      {loading && <LoadingMessage>Loading...</LoadingMessage>}
+      {error && <ErrorMessage>{error}</ErrorMessage>}
+      {!loading && !error && (
+        <RoomGrid>
+          {filteredRooms.map((room) => (
+            <RoomCard key={room._id} room={room} />
+          ))}
+        </RoomGrid>
+      )}
+    </Container>
   );
 };
 
