@@ -24,15 +24,15 @@ export default function Header() {
   };
 
   return (
-    <nav className="bg-white border-b border-gray-200 dark:bg-gray-900 px-8">
+    <nav className="bg-white border-b border-gray-200 dark:bg-gray-900 lg:px-8">
       <div className="container mx-auto flex items-center justify-between p-4">
         <Link href="/">
           <p className="flex items-center space-x-3 cursor-pointer h-6">
             <Image
               src={logo}
               alt="Flowbite Logo"
-              width={300}
-              height={300}
+              width={200}
+              height={200}
             />
           </p>
         </Link>

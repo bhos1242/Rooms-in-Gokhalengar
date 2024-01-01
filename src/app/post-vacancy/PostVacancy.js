@@ -46,11 +46,11 @@ const PostVacancy = () => {
         {/* Individual input fields */}
         {[
            { label: 'Title', name: 'title', type: 'text', placeholder: 'Enter vacancy title, e.g., "1 Vacancy available in 1bhk"' },
-           { label: 'Location', name: 'location', type: 'text', placeholder: 'Enter location' },
-           { label: 'Accommodation Type', name: 'accommodationType', type: 'text', placeholder: 'Enter accommodation type' },
+           { label: 'Location', name: 'location', type: 'text', placeholder: 'Enter location e.g., "Near samruddhi mess"' },
+           { label: 'Accommodation Type', name: 'accommodationType', type: 'text', placeholder: 'Enter accommodation type e.g, 1rk/1bhk'  },
            { label: 'Description', name: 'description', type: 'textarea', rows: 4, placeholder: 'Enter description' },
-           { label: 'Rent', name: 'rent', type: 'text', placeholder: 'Enter rent' },
-           { label: 'Contact Information', name: 'contactInfo', type: 'text', placeholder: 'Enter contact information' },
+           { label: 'Rent', name: 'rent', type: 'text', placeholder: 'Enter rent e.g., 2500' },
+           { label: 'Contact', name: 'contactInfo', type: 'text', placeholder: 'Enter contact information e.g,"vivek bhos 9022273812' },
         ].map((field) => (
           <div key={field.name} className="mb-6">
             <label
