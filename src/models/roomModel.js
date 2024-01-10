@@ -29,8 +29,12 @@ const roomSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  posterEmail: {
+    type: String,
+    required: true,
+  },
 });
 
-const Room =mongoose.models.Room || mongoose.model("Room", roomSchema);
+const Room = mongoose.models.Room || mongoose.model("Room", roomSchema);
 
 export default Room;

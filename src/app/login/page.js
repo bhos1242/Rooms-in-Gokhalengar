@@ -68,7 +68,7 @@ const LoginPage = () => {
       <div className="w-full p-8 bg-white rounded-md shadow-md md:w-96">
         <header className="mb-8 text-center">
           <h1 className="text-3xl font-extrabold text-blue-700">Welcome</h1>
-          <p className="my-4 text-gray-700">Sign in to continue</p>
+          <p className="my-4 text-gray-700 ">Sign in to continue</p>
         </header>
 
         {loading && (
@@ -158,14 +158,15 @@ const LoginPage = () => {
           </form>
         </main>
 
-        {session && (
-          <footer className="mt-4">
-            <p className="text-gray-700">
-              Welcome back, {session.user.name || "User"}!
-            </p>
-            <p className="text-sm text-gray-500">Email: {session.user.email}</p>
-          </footer>
-        )}
+        <p className="my-5 text-sm font-light text-gray-500">
+          Not created account yet?{" "}
+          <a
+            href="/resister"
+            className="font-medium text-blue-600 hover:underline"
+          >
+            Login here
+          </a>
+        </p>
       </div>
     </div>
   );

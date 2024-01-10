@@ -2,8 +2,17 @@
 import React, { useState } from "react";
 import { addVacancy } from "../../services/roomService";
 import toast from "react-hot-toast";
+import { useSession } from "next-auth/react";
 
 const PostVacancy = () => {
+  const { data: session, user } = useSession();
+  let posterEmail;
+  if (session?.user?.email === undefined) {
+    posterEmail = "abc@gmail.com";
+  } else {
+    posterEmail = session?.user?.email;
+  }
+
   const [formData, setFormData] = useState({
     title: "",
     location: "",
@@ -12,6 +21,7 @@ const PostVacancy = () => {
     rent: "",
     contactInfo: "",
     lightBillIncluded: false,
+    posterEmail,
   });
 
   const [loading, setLoading] = useState(false);
