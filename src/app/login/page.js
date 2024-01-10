@@ -67,10 +67,8 @@ const LoginPage = () => {
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-400 to-blue-500">
       <div className="w-full p-8 bg-white rounded-md shadow-md md:w-96">
         <header className="mb-8 text-center">
-          <h1 className="text-3xl font-extrabold text-blue-700">
-            Welcome to Your App
-          </h1>
-          <p className="text-gray-700">Sign in to continue</p>
+          <h1 className="text-3xl font-extrabold text-blue-700">Welcome</h1>
+          <p className="my-4 text-gray-700">Sign in to continue</p>
         </header>
 
         {loading && (
