@@ -1,53 +1,14 @@
-// Import necessary modules and styles
 "use client";
-import { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { getRoomDetails } from '../../services/roomService';
-import RoomCard from './RoomCard';
-
-const Container = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-`;
-
-const Title = styled.h2`
-  font-size: 2rem;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 20px;
-`;
-
-const RoomGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-`;
-
-const LoadingMessage = styled.p`
-  text-align: center;
-  font-size: 1.2rem;
-  color: #555;
-`;
-
-const ErrorMessage = styled.p`
-  text-align: center;
-  font-size: 1.2rem;
-  color: #ff0000;
-`;
-
-const SearchInput = styled.input`
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  font-size: 1rem;
-`;
+import { useState, useEffect } from "react";
+import { getRoomDetails } from "../../services/roomService";
+import RoomCard from "./RoomCard";
+import Link from "next/link";
 
 const FindRoom = () => {
   const [roomDetails, setRoomDetails] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetchRoomDetails();
@@ -72,31 +33,42 @@ const FindRoom = () => {
     setSearchTerm(e.target.value);
   };
 
-  const filteredRooms = roomDetails.filter(room =>
-    room.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    room.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    room.rent.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredRooms = roomDetails.filter(
+    (room) =>
+      room.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      room.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      room.rent.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <Container>
-      <Title>Find a Room</Title>
-      <SearchInput
+    <div className="max-w-6xl p-8 mx-auto">
+      <div className="flex items-center justify-between mb-8">
+        <h2 className="text-4xl font-bold text-blue-600">Find a Room</h2>
+        <Link href="/post-vacancy">
+          <button className="px-4 py-2 text-white bg-blue-600 rounded-md focus:outline-none hover:bg-blue-700">
+            Post Vacancy
+          </button>
+        </Link>
+      </div>
+      <input
         type="text"
         placeholder="Search by title, rent, or location"
         value={searchTerm}
         onChange={handleSearch}
+        className="w-full px-4 py-3 mb-8 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
       />
-      {loading && <LoadingMessage>Loading...</LoadingMessage>}
-      {error && <ErrorMessage>{error}</ErrorMessage>}
+      {loading && (
+        <p className="text-2xl text-center text-gray-700">Loading...</p>
+      )}
+      {error && <p className="text-2xl text-center text-red-500">{error}</p>}
       {!loading && !error && (
-        <RoomGrid>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {filteredRooms.map((room) => (
             <RoomCard key={room._id} room={room} />
           ))}
-        </RoomGrid>
+        </div>
       )}
-    </Container>
+    </div>
   );
 };
 
