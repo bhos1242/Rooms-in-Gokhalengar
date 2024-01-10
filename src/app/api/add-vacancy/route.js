@@ -5,7 +5,16 @@ import Room from "../../../models/roomModel";
 export async function POST(request) {
   try {
     connect();
-    const { title, location, accommodationType, description, rent, contactInfo, lightBillIncluded } = await request.json();
+    const {
+      title,
+      location,
+      accommodationType,
+      description,
+      rent,
+      contactInfo,
+      lightBillIncluded,
+      posterEmail,
+    } = await request.json();
 
     // Create a new room instancez
     const newRoom = new Room({
@@ -16,7 +25,7 @@ export async function POST(request) {
       rent,
       contactInfo,
       lightBillIncluded,
-      
+      posterEmail,
     });
 
     // Save the new room to the database
