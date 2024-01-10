@@ -1,5 +1,5 @@
 "use client";
-import {addUser} from "../../services/userService";
+import { addUser } from "../../services/userService";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
@@ -23,7 +23,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await addUser(formData); // Assuming registerUser handles API call and returns response
+      const response = await addUser(formData);
       if (response.status) {
         toast.success(response.message);
         setFormData({
@@ -31,7 +31,7 @@ const SignUp = () => {
           email: "",
           password: "",
         });
-        router.push("/login"); // Redirect to login page after successful registration
+        router.push("/login");
       } else {
         toast.error(response.message);
       }
@@ -42,90 +42,72 @@ const SignUp = () => {
   };
 
   return (
-    <section className="">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:py-8 lg:py-8">
-        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Create an account
-            </h1>
-            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
-             
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Your Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Your Full Name"
-                  required
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Your email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="name@company.com"
-                  required
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Password
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="••••••••"
-                  required
-                />
-              </div>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-400 to-blue-500">
+      <div className="w-full p-8 bg-white rounded-md shadow-md md:w-96">
+        <header className="mb-8 text-center">
+          <h1 className="text-3xl font-extrabold text-blue-700">
+            Create an Account
+          </h1>
+          <p className="text-gray-700">Sign up to get started</p>
+        </header>
 
-              <button
-                type="submit"
-                className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Create an account
-              </button>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Already have an account?{" "}
-                <a
-                  href="#"
-                  className="font-medium text-right text-blue-600 hover:underline dark:text-blue-500"
-                >
-                  Login here
-                </a>
-              </p>
-            </form>
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <div>
+            <label className="block mb-2 text-gray-700">Your Name:</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full p-2 text-black border border-gray-300 rounded-md"
+              placeholder="Your Full Name"
+              required
+            />
           </div>
-        </div>
+          <div>
+            <label className="block mb-2 text-gray-700">Your Email:</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full p-2 text-black border border-gray-300 rounded-md"
+              placeholder="name@company.com"
+              required
+            />
+          </div>
+          <div>
+            <label className="block mb-2 text-gray-700">Password:</label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full p-2 text-black border border-gray-300 rounded-md"
+              placeholder="••••••••"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+          >
+            Create an Account
+          </button>
+
+          <p className="text-sm font-light text-gray-500">
+            Already have an account?{" "}
+            <a
+              href="/login"
+              className="font-medium text-blue-600 hover:underline"
+            >
+              Login here
+            </a>
+          </p>
+        </form>
       </div>
-    </section>
+    </div>
   );
 };
 

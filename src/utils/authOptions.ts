@@ -29,8 +29,7 @@ export const authOptions: NextAuthOptions = {
 
           if (user && passwordMatch) {
             return user;
-          }
-          else{
+          } else {
             return NextResponse.json(
               {
                 message: "User not found",
@@ -54,5 +53,8 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
 
+  pages: {
+    signIn: "/login",
+  },
   secret: process.env.NEXTAUTH_SECRET,
 };
